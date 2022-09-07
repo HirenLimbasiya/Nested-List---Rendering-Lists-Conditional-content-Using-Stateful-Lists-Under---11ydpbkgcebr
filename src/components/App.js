@@ -1,4 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
+import First from "./first";
+import Second from "./Second";
 import "./../styles/App.css";
 
 // Do not alter the states const and values inside it.
@@ -154,8 +156,64 @@ const states = [
   },
 ];
 
+
+
 function App() {
-  return <div id="main"></div>;
+
+  const [state , setState] = useState(null);
+  const [city , setCity] = useState(null);
+  const [stateIndex , setStateIndex] = useState();
+
+  useEffect(() => {
+    setState(null);
+  } , [])
+    // useEffect(() => {
+    //   setState(stateIndex);
+    // } , [city])
+  function stateClick(index){
+    // console.log(index);
+    setCity(null);
+    setState((prevIndex) => {
+      if(prevIndex == index){
+        return null;
+      }
+      return index;
+    });
+    
+  }
+
+  function cityClick(ind){
+    // console.log(index);
+    console.log(ind);
+    console.log(stateIndex);  
+    setCity((prevIndex) => {
+      if(prevIndex == ind){
+        return null;
+      }
+      return ind;
+    });
+
+    
+  }
+  // console.log(states[1].cities)
+  return( <div id="main">
+            {states.map((element , index) => {
+              {/* return <li>{index}</li> */}
+              {/* console.log("state"+(index+1) + " " + element.name + (index+1)); */}
+              return index == state ?  <div><li id={"state"+(index+1)} key={element.name + (index+1)} onClick={() => stateClick(index)} >{element.name}</li> <ul>
+                {states[state].cities.map((element , ind) => {
+                  return ind == city ?  <div><li id={"city"+(ind+1)} key={element.name + (ind+1)} onClick={() => cityClick(ind)}>{element.name}</li><ul>
+                  {states[state].cities[city].towns.map((element,i) => {
+                    return <li id={"town"+(i+1)} key={element.name + (i+1)}>{element.name}</li>
+                  })}</ul></div>
+                  : <li id={"city"+(ind+1)} key={element.name + (ind+1)} onClick={() => cityClick(ind)}>{element.name}</li> 
+                })}</ul></div>
+              
+              : <li id={"state"+(index+1)} key={element.name + (index+1)} onClick={() => stateClick(index)}>{element.name}</li>
+            })}
+           
+          </div>
+  )
 }
 
 export default App;
