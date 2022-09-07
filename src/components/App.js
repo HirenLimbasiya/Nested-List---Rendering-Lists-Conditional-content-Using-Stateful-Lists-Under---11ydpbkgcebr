@@ -162,16 +162,13 @@ function App() {
 
   const [state , setState] = useState(null);
   const [city , setCity] = useState(null);
-  const [stateIndex , setStateIndex] = useState();
+  // const [stateIndex , setStateIndex] = useState();
 
   useEffect(() => {
     setState(null);
   } , [])
-    // useEffect(() => {
-    //   setState(stateIndex);
-    // } , [city])
+
   function stateClick(index){
-    // console.log(index);
     setCity(null);
     setState((prevIndex) => {
       if(prevIndex == index){
@@ -183,9 +180,7 @@ function App() {
   }
 
   function cityClick(ind){
-    // console.log(index);
-    console.log(ind);
-    console.log(stateIndex);  
+ 
     setCity((prevIndex) => {
       if(prevIndex == ind){
         return null;
@@ -195,11 +190,9 @@ function App() {
 
     
   }
-  // console.log(states[1].cities)
+
   return( <div id="main">
             {states.map((element , index) => {
-              {/* return <li>{index}</li> */}
-              {/* console.log("state"+(index+1) + " " + element.name + (index+1)); */}
               return index == state ?  <div><li id={"state"+(index+1)} key={element.name + (index+1)} onClick={() => stateClick(index)} >{element.name}</li> <ul>
                 {states[state].cities.map((element , ind) => {
                   return ind == city ?  <div><li id={"city"+(ind+1)} key={element.name + (ind+1)} onClick={() => cityClick(ind)}>{element.name}</li><ul>
