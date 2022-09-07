@@ -1,7 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import First from "./first";
-import Second from "./Second";
-import "./../styles/App.css";
+
 
 // Do not alter the states const and values inside it.
 const states = [
